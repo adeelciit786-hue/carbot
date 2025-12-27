@@ -1,0 +1,91 @@
+# Python Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / Packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+
+# Local Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Application Temporary Files
+uploads/
+processed_images/
+temp/
+tmp/
+*.tmp
+
+# Flask
+instance/
+.webassets-cache
+
+# Byte-compiled / optimized / DLL files
+*.o
+*.a
+*.so
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# OS Files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# NPM (if added in future)
+node_modules/
+npm-debug.log
+
+# Optional Files Created During Development
+debug.log
+.env.example
+
+# Project-specific
+config/local.py
+settings/local.py

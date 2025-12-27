@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error Handling Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; background: #f5f5f5; border-radius: 5px; }
+        .error-message { background: #fee; color: #c33; padding: 20px; border-radius: 10px; border-left: 4px solid #c33; display: none; }
+        .error-message.show { display: block; }
+        .error-message ul { list-style: none; margin-top: 10px; }
+        .error-message li { margin: 5px 0; padding-left: 20px; }
+        button { padding: 10px 20px; cursor: pointer; background: #667eea; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Error Handling Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Single Error</h2>
+        <button onclick="testError1()">Test Single Error</button>
+        <div id="test1Error" class="error-message">
+            <strong>⚠️ Validation Failed</strong>
+            <ul id="test1List"></ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Multiple Errors</h2>
+        <button onclick="testError2()">Test Multiple Errors</button>
+        <div id="test2Error" class="error-message">
+            <strong>⚠️ Validation Failed</strong>
+            <ul id="test2List"></ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Null/Undefined Errors</h2>
+        <button onclick="testError3()">Test Null Errors</button>
+        <div id="test3Error" class="error-message">
+            <strong>⚠️ Validation Failed</strong>
+            <ul id="test3List"></ul>
+        </div>
+    </div>
+
+    <script>
+        function displayError(containerId, listId, errors) {
+            const errorContainer = document.getElementById(containerId);
+            const errorList = document.getElementById(listId);
+            
+            // Ensure errors is always an array
+            if (typeof errors === 'string') {
+                errors = [errors];
+            } else if (!errors || !Array.isArray(errors)) {
+                errors = ['An error occurred. Please try again.'];
+            }
+            
+            // Filter out empty/undefined errors
+            errors = errors.filter(e => e && e.toString().trim());
+            
+            if (errors.length === 0) {
+                errors = ['An error occurred. Please try again.'];
+            }
+            
+            // Build HTML for errors
+            const errorHTML = errors.map(e => `<li>${String(e).trim()}</li>`).join('');
+            errorList.innerHTML = errorHTML;
+            errorContainer.classList.add('show');
+            
+            console.log('Errors displayed:', errors);
+        }
+
+        function testError1() {
+            displayError('test1Error', 'test1List', ['Please enter a car description']);
+        }
+
+        function testError2() {
+            displayError('test2Error', 'test2List', [
+                'Description too short - minimum 20 characters',
+                'Year is required',
+                'Price is required'
+            ]);
+        }
+
+        function testError3() {
+            displayError('test3Error', 'test3List', undefined);
+        }
+    </script>
+</body>
+</html>

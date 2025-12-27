@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>🚗 Car Posting Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .input-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-process {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-process:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-clear {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-clear:hover {
+            background: #e0e0e0;
+        }
+
+        .output-section {
+            display: none;
+        }
+
+        .output-section.show {
+            display: block;
+        }
+
+        .output-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .content-box {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-label {
+            color: #999;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #c33;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .error-message ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .error-message li {
+            margin: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .error-message li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #c33;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 8px 0;
+            color: #333;
+        }
+
+        .features-list li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .selling-angle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            textarea {
+                height: 300px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3c3;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .chat-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .chat-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .customer-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s;
+        }
+
+        .customer-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .response-box {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            min-height: 80px;
+            display: none;
+        }
+
+        .response-box.show {
+            display: block;
+        }
+
+        .response-text {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .response-meta {
+            color: #999;
+            font-size: 12px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 10px;
+        }
+
+        .chat-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-generate-response {
+            flex: 1;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-generate-response:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-copy-response {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-copy-response:hover {
+            background: #e0e0e0;
+        }
+
+        .chat-loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .chat-loading.show {
+            display: block;
+        }
+
+        .small-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        /* Image processing CSS removed */
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-group label {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .control-group select,
+        .control-group input[type="text"] {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .control-group select:focus,
+        .control-group input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Image processing buttons and preview CSS removed */
+
+        .result-section {
+            margin-bottom: 30px;
+        }
+
+        .result-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .collage-display {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin: 20px 0;
+        }
+
+
+
+        .image-result-meta {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .image-result-meta strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 CAR POSTING BOT</h1>
+            <p>Generate Perfect Facebook Posts in Seconds</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Input Section -->
+            <div class="card input-section">
+                <h2>📝 Enter Car Description</h2>
+                <textarea id="carDescription" placeholder="Paste or type your complete car description here...
+
+Example:
+2018 Jeep Compass TrailHawk GCC with a 2.4L 4-cylinder in Good Condition 
+
+It has been driven only 103,000 kilometers and is free from any issues or faults. The car drives smoothly without any problems or defects.
+
+The car comes with a 2.4L 4-cylinder engine that provides around 700 kilometers per full tank. It also has brand-new tires installed.
+
+This is a mid-option model with features such as leather seats, cruise control, alloy rims, DRL, fog lamps, parking sensors, Bluetooth, AUX, 4x4, push-button start, keyless entry, electronic handbrake, and a touch screen display.
+
+I am selling this car for just 30,000 AED."></textarea>
+                <div class="button-group">
+                    <button class="btn-process" onclick="processDescription()">Generate Post ✨</button>
+                    <button class="btn-clear" onclick="clearInput()">Clear</button>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="card output-section" id="outputSection">
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Processing car information...</p>
+                </div>
+
+                <div id="errorContainer" class="error-message">
+                    <strong>⚠️ Validation Failed</strong>
+                    <ul id="errorList"></ul>
+                </div>
+
+                <div id="successContainer" class="success-message">
+                    ✅ Car posting generated successfully!
+                </div>
+
+                <div id="outputContent" style="display: none;">
+                    <div class="selling-angle" id="sellingAngle"></div>
+                    <div class="category-badge" id="categoryBadge"></div>
+
+                    <div class="info-grid" id="carInfoGrid"></div>
+
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('caption')">📄 Caption</button>
+                        <button class="tab-btn" onclick="switchTab('hashtags')">🏷️ Hashtags</button>
+                        <button class="tab-btn" onclick="switchTab('features')">✨ Features</button>
+                        <button class="tab-btn" onclick="switchTab('posting')">📱 Posting Guide</button>
+                        <button class="tab-btn" onclick="switchTab('inquiry')">💬 Inquiry Script</button>
+                        <button class="tab-btn" onclick="switchTab('delivery')">✅ Delivery Script</button>
+                    </div>
+
+                    <div id="caption" class="tab-content active">
+                        <h3 style="margin-bottom: 10px;">Copy-Paste Caption for Facebook</h3>
+                        <div class="content-box" id="captionContent"></div>
+                        <button class="copy-btn" onclick="copyToClipboard('captionContent')">📋 Copy Caption</button>
+                    </div>
+
+                    <div id="hashtags" class="tab-content">
+                        <h3 style="margin-bottom: 10px;">Ready-to-Use Hashtags</h3>
+                        <div class="content-box" id="hashtagsContent"></div>
+                        <button class="copy-btn" onclick="copyToClipboard('hashtagsContent')">📋 Copy Hashtags</button>
+                    </div>
+
+                    <div id="features" class="tab-content">
+                        <h3 style="margin-bottom: 10px;">Car Features</h3>
+                        <div class="content-box" id="featuresContent"></div>
+                    </div>
+
+                    <div id="posting" class="tab-content">
+                        <h3 style="margin-bottom: 10px;">Platform Posting Instructions</h3>
+                        <div class="content-box" id="postingContent"></div>
+                    </div>
+
+                    <div id="inquiry" class="tab-content">
+                        <h3 style="margin-bottom: 10px;">Buyer Inquiry Response Script</h3>
+                        <div class="content-box" id="inquiryContent"></div>
+                        <button class="copy-btn" onclick="copyToClipboard('inquiryContent')">📋 Copy Script</button>
+                    </div>
+
+                    <div id="delivery" class="tab-content">
+                        <h3 style="margin-bottom: 10px;">Post-Delivery Social Proof Script</h3>
+                        <div class="content-box" id="deliveryContent"></div>
+                        <button class="copy-btn" onclick="copyToClipboard('deliveryContent')">📋 Copy Script</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Assistant Section -->
+        <div class="chat-section">
+            <h2>💬 AI Chat Assistant</h2>
+            <p style="color: #666; margin-bottom: 20px;">Paste customer messages and get smart, humanized responses instantly</p>
+            
+            <div class="chat-box">
+                <div>
+                    <label style="color: #667eea; font-weight: 600; margin-bottom: 8px; display: block;">Customer Message</label>
+                    <textarea id="customerMessage" class="customer-input" placeholder="Paste the customer's message here...&#10;&#10;Example: Hi, what's the lowest price for this car? Can I view it tomorrow?&#10;&#10;💡 Tip: Press Enter to submit, Shift+Enter for new lines"></textarea>
+                </div>
+
+                <div class="chat-buttons">
+                    <button class="btn-generate-response" onclick="generateChatResponse()">🤖 Generate Response</button>
+                </div>
+
+                <div class="chat-loading" id="chatLoading">
+                    <div class="small-spinner"></div>
+                    <p style="margin-top: 10px; color: #666;">Generating response...</p>
+                </div>
+
+                <div class="response-box" id="responseBox">
+                    <div class="response-text" id="responseText"></div>
+                    <div class="response-meta" id="responseMeta"></div>
+                    <button class="btn-copy-response" onclick="copyToClipboard('responseText')" style="margin-top: 15px;">📋 Copy Response</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // Image Processing Functions
+
+        // Image processing functions removed - module deleted
+    </script>
+
+    <script>
+        async function processDescription() {
+            const description = document.getElementById('carDescription').value;
+            const outputSection = document.getElementById('outputSection');
+            const loading = document.getElementById('loading');
+            const errorContainer = document.getElementById('errorContainer');
+            const successContainer = document.getElementById('successContainer');
+            const outputContent = document.getElementById('outputContent');
+
+            if (!description.trim()) {
+                alert('Please enter a car description');
+                return;
+            }
+
+            // Show loading
+            outputSection.classList.add('show');
+            loading.classList.add('show');
+            errorContainer.classList.remove('show');
+            successContainer.classList.remove('show');
+            outputContent.style.display = 'none';
+            document.getElementById('errorList').innerHTML = '';  // Clear previous errors
+
+            try {
+                const response = await fetch('/api/process-car', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ description: description })
+                });
+
+                const result = await response.json();
+                loading.classList.remove('show');
+
+                if (result.success) {
+                    successContainer.classList.add('show');
+                    displayOutput(result.data);
+                    outputContent.style.display = 'block';
+                } else {
+                    // Ensure errors is an array with valid content
+                    let errors = result.errors;
+                    
+                    // Debug logging
+                    console.log('API Result:', result);
+                    console.log('Errors field:', errors);
+                    console.log('Errors type:', typeof errors);
+                    console.log('Is array:', Array.isArray(errors));
+                    
+                    // Fallback if errors is not an array
+                    if (!Array.isArray(errors)) {
+                        errors = result.message ? [result.message] : ['An error occurred'];
+                    }
+                    
+                    // Ensure errors is not empty
+                    if (!errors || errors.length === 0) {
+                        errors = ['An error occurred. Please try again.'];
+                    }
+                    
+                    console.log('Final errors to display:', errors);
+                    displayErrors(errors);
+                }
+            } catch (error) {
+                loading.classList.remove('show');
+                console.error('Error:', error);
+                displayErrors(['An error occurred while processing. Please try again.']);
+            }
+        }
+
+        function displayOutput(data) {
+            // Selling angle
+            document.getElementById('sellingAngle').textContent = '💡 ' + data.selling_angle;
+
+            // Category badge
+            document.getElementById('categoryBadge').textContent = '🏷️ ' + data.category;
+
+            // Car info grid
+            const carInfo = data.car_info;
+            const infoGrid = document.getElementById('carInfoGrid');
+            infoGrid.innerHTML = `
+                <div class="info-item">
+                    <div class="info-label">Make & Model</div>
+                    <div class="info-value">${carInfo.make_model}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Year</div>
+                    <div class="info-value">${carInfo.year}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Mileage</div>
+                    <div class="info-value">${carInfo.mileage ? carInfo.mileage.toLocaleString() + ' km' : 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Price</div>
+                    <div class="info-value">AED ${carInfo.price ? carInfo.price.toLocaleString() : 'Contact'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Engine</div>
+                    <div class="info-value">${carInfo.engine || 'N/A'}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Transmission</div>
+                    <div class="info-value">${carInfo.transmission || 'N/A'}</div>
+                </div>
+            `;
+
+            // Tab contents
+            document.getElementById('captionContent').textContent = data.caption;
+            document.getElementById('hashtagsContent').textContent = data.hashtags;
+            document.getElementById('featuresContent').textContent = data.features;
+            document.getElementById('postingContent').textContent = data.posting_instructions;
+            document.getElementById('inquiryContent').textContent = data.inquiry_script;
+            document.getElementById('deliveryContent').textContent = data.delivery_script;
+        }
+
+        function displayErrors(errors) {
+            const errorContainer = document.getElementById('errorContainer');
+            const errorList = document.getElementById('errorList');
+            
+            // Clear the list first
+            errorList.innerHTML = '';
+            
+            // Ensure we have an array
+            if (!Array.isArray(errors)) {
+                if (typeof errors === 'string' && errors.trim()) {
+                    errors = [errors];
+                } else {
+                    errors = ['An error occurred. Please try again.'];
+                }
+            }
+            
+            // Filter and ensure all errors are non-empty strings
+            const validErrors = [];
+            for (const error of errors) {
+                const errorStr = String(error).trim();
+                if (errorStr && errorStr !== 'undefined' && errorStr !== 'null') {
+                    validErrors.push(errorStr);
+                }
+            }
+            
+            // Fallback if no valid errors
+            if (validErrors.length === 0) {
+                validErrors.push('An error occurred. Please try again.');
+            }
+            
+            // Create list items
+            for (const error of validErrors) {
+                const li = document.createElement('li');
+                li.textContent = error;
+                errorList.appendChild(li);
+            }
+            
+            // Show the container
+            errorContainer.classList.add('show');
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        function clearInput() {
+            document.getElementById('carDescription').value = '';
+            document.getElementById('outputSection').classList.remove('show');
+            document.getElementById('carDescription').focus();
+        }
+
+        // Chat Assistant Functions
+        async function generateChatResponse() {
+            const customerMessage = document.getElementById('customerMessage').value;
+            const chatLoading = document.getElementById('chatLoading');
+            const responseBox = document.getElementById('responseBox');
+            const responseText = document.getElementById('responseText');
+            const responseMeta = document.getElementById('responseMeta');
+
+            if (!customerMessage.trim()) {
+                alert('Please enter a customer message');
+                return;
+            }
+
+            // Show loading
+            chatLoading.classList.add('show');
+            responseBox.classList.remove('show');
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: customerMessage,
+                        car_info: null  // Can add car info if needed
+                    })
+                });
+
+                const result = await response.json();
+                chatLoading.classList.remove('show');
+
+                if (result.success) {
+                    responseText.textContent = result.response;
+                    responseMeta.innerHTML = `<strong>API:</strong> ${result.api_used} | <strong>Status:</strong> ✅ Success`;
+                    responseBox.classList.add('show');
+                } else {
+                    responseMeta.innerHTML = `<strong>Error:</strong> ${result.error || 'Failed to generate response'}`;
+                    responseMeta.style.color = '#c33';
+                    responseBox.classList.add('show');
+                }
+            } catch (error) {
+                chatLoading.classList.remove('show');
+                console.error('Error:', error);
+                responseMeta.innerHTML = `<strong>Error:</strong> ${error.message}`;
+                responseMeta.style.color = '#c33';
+                responseBox.classList.add('show');
+            }
+        }
+
+        // Initialize chat textarea - Enter to submit, Shift+Enter for new line
+        document.addEventListener('DOMContentLoaded', function() {
+            const customerMessageTextarea = document.getElementById('customerMessage');
+            if (customerMessageTextarea) {
+                customerMessageTextarea.addEventListener('keydown', function(event) {
+                    // If Enter is pressed without Shift, submit the form
+                    if (event.key === 'Enter' && !event.shiftKey) {
+                        event.preventDefault(); // Prevent default new line
+                        generateChatResponse();
+                    }
+                    // If Shift+Enter, allow new line (default behavior)
+                });
+            }
+        });
+    </script>

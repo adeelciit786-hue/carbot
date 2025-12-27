@@ -1,0 +1,42 @@
+{
+  "sample_cars": [
+    {
+      "id": 1,
+      "description": "2018 Jeep Compass TrailHawk GCC with a 2.4L 4-cylinder in Good Condition \n\nIt has been driven only 103,000 kilometers and is free from any issues or faults. The car drives smoothly without any problems or defects. It has been initially serviced at the agency and later at a local garage.\n\nThe car comes with a 2.4L 4-cylinder engine that provides around 700 kilometers per full tank. It also has brand-new tires installed.\n\nThis is a mid-option model with features such as leather seats, cruise control, alloy rims, DRL, fog lamps, parking sensors, Bluetooth, AUX, 4x4, push-button start, keyless entry, keyless start, electronic handbrake, and a touch screen display.\n\nI am selling this car for just 30,000 AED.",
+      "category": "4x4/SUV - Budget-Friendly",
+      "expected_price": 30000
+    },
+    {
+      "id": 2,
+      "description": "Jeep Wrangler 2016 GCC Specs with Fox Kit in Great Shape\n\nCurrent km of the car is 155,000km only. No issues or faults in the car. Drives really smooth with no defects or faults. It has original fox lift kit. Hard top convertible car with a V6 engine.\n\nMid option with fabric seats, cruise control, ice-chilled aircon, alloy rims, Sony after market screen, Bluetooth, AUX, hardtop convertible and much more.\n\nSelling for just 49,000AED with free one year Registration, insurance, inspection and salik.",
+      "category": "4x4/SUV - Premium",
+      "expected_price": 49000
+    },
+    {
+      "id": 3,
+      "description": "Low Mileage Mercedes C230 2007 Full Option in Immaculate Shape\n\nThis car has only been driven 92,000 kilometers and is in excellent working order. It drives smoothly and comfortably without any visible defects. It features a powerful and reliable 2.5L V6 engine paired with a 6-speed automatic transmission.\n\nThe car comes with a full suite of options, including leather seats, an electric seat, a sunroof, parking sensors (rear and front), a rear shade, cruise control, a speed limiter, alloy rims, fog lamps, a central lock, electric windows, and many more.\n\nI am selling this car for just 12,500 AED.",
+      "category": "Luxury/Premium - Low Mileage",
+      "expected_price": 12500
+    },
+    {
+      "id": 4,
+      "description": "Single Owner Chevrolet Cruze 2016 LT GCC Specs in Good Condition\n\n2 remote keys available\nThe car boasts a comprehensive service history, with a total mileage of 182,000 kilometers. It was meticulously maintained at the agency until 122,000 kilometers, after which it was serviced at a local garage, and all the service bills are readily available. The car is in pristine condition, with no issues or faults. It drives exceptionally smoothly and comfortably. The interior and exterior are in excellent shape. The fuel efficiency is impressive, with an average of 750 kilometers per full tank.\n\nThis Cruze LT is equipped with a full range of features, including cruise control, alloy rims, fog lamps, dual-tone leather seats, a sunroof, push-button start, keyless entry, a reverse camera, and a touch screen display.\n\nI am selling this car for a reasonable price of 12,500 AED.",
+      "category": "Sedan - Budget-Friendly",
+      "expected_price": 12500
+    },
+    {
+      "id": 5,
+      "description": "Well-maintained Lincoln Town Car 2007 American Specs in Great Shape\n\n2 keys available\nThe car has been driven 296,000 kilometers, which is quite reasonable for its age. It has never had any issues or problems. It has been a wonderful and comfortable car to drive around. It comes with a V8 4.6L engine that is very reliable and can easily travel 550 kilometers on a full tank. The car has no damage to the chassis, and no airbags have been deployed. An inspection certificate is available.\n\nThe car has a signature limited edition with features such as cruise control, electric seats, leather seats, a six-seat configuration, an electric trunk, a sunroof, parking sensors, alloy rims, and many more.\n\nI am selling the car for just 11,500 AED.",
+      "category": "Luxury Sedan - Budget",
+      "expected_price": 11500
+    }
+  ],
+  "parsing_notes": {
+    "note_1": "These examples cover diverse car types: 4x4/SUV, Sedan, Luxury vehicles",
+    "note_2": "Prices range from 11,500 to 49,000 AED - covers budget to premium",
+    "note_3": "Mileage ranges from 92,000 to 296,000 km - tests various conditions",
+    "note_4": "Includes special offers (free registration, insurance, inspection)",
+    "note_5": "Different engine types: 4-cylinder, V6, V8 - tests parsing",
+    "note_6": "Multiple transmission types and fuel economy mentions"
+  }
+}

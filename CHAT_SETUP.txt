@@ -1,0 +1,50 @@
+# 🚗 CAR POSTING BOT - CONFIGURATION GUIDE
+# 
+# This file explains how to set up AI chat features with OpenAI or Google Gemini
+# 
+# ========== OPTION 1: USE OPENAI (ChatGPT) ==========
+# 
+# 1. Get your API key from: https://platform.openai.com/api-keys
+# 2. Set environment variable:
+#    Windows (PowerShell):
+#    $env:OPENAI_API_KEY="sk-your-key-here"
+#    
+#    Windows (Command Prompt):
+#    set OPENAI_API_KEY=sk-your-key-here
+#    
+#    Linux/Mac:
+#    export OPENAI_API_KEY="sk-your-key-here"
+# 
+# 3. Install OpenAI package:
+#    pip install openai
+# 
+# ========== OPTION 2: USE GOOGLE GEMINI ==========
+# 
+# 1. Get your API key from: https://ai.google.dev/
+# 2. Set environment variable:
+#    Windows (PowerShell):
+#    $env:GEMINI_API_KEY="your-api-key-here"
+#    
+#    Windows (Command Prompt):
+#    set GEMINI_API_KEY=your-api-key-here
+#    
+#    Linux/Mac:
+#    export GEMINI_API_KEY="your-api-key-here"
+# 
+# 3. Install Google AI package:
+#    pip install google-generativeai
+# 
+# ========== OPTION 3: USE WITHOUT AI (TEMPLATES) ==========
+# 
+# If you don't want to use AI, the bot works fine with smart templates.
+# No API key needed! Responses are generated automatically.
+# 
+# ========== QUICK START ==========
+# 
+# For Windows PowerShell users, run this before starting the server:
+# $env:OPENAI_API_KEY="sk-your-key-here"
+# python app.py
+# 
+# Or use the provided batch files for easier setup.
+
+# Save this file as CONFIGURATION.txt in the Trading2 folder
