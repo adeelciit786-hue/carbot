@@ -7,7 +7,7 @@ from pathlib import Path
 
 # Page configuration
 st.set_page_config(
-    page_title=' Car Posting Bot',
+    page_title='Car Posting Bot',
     page_icon='',
     layout='wide',
     initial_sidebar_state='expanded'
@@ -19,7 +19,7 @@ st.markdown('''
     .main {
         padding: 0rem 1rem;
     }
-    .stTabs [data-baseweb=\"tab-list\"] button [data-testid=\"stMarkdownContainer\"] p {
+    .stTabs [data-baseweb=tab-list] button [data-testid=stMarkdownContainer] p {
         font-size: 1.25rem;
     }
     </style>
@@ -34,19 +34,19 @@ try:
     from car_bot import CarPostingBot, CarCategory
     bot = CarPostingBot()
 except Exception as e:
-    st.warning(f' Car Bot not available: {str(e)[:50]}')
+    st.warning(f'Car Bot not available: {str(e)[:50]}')
 
 try:
     from chat_assistant import ChatAssistant
     chat_assist = ChatAssistant()
 except Exception as e:
-    st.warning(f' Chat Assistant not available: {str(e)[:50]}')
+    st.warning(f'Chat Assistant not available: {str(e)[:50]}')
 
 try:
     from image_processor import CarImageProcessor
     image_processor = CarImageProcessor()
 except Exception as e:
-    st.warning(f' Image Processor not available: {str(e)[:50]}')
+    st.warning(f'Image Processor not available: {str(e)[:50]}')
 
 # Initialize session state
 if 'car_post' not in st.session_state:
@@ -102,14 +102,7 @@ with tab1:
             )
         
         with col2:
-            st.info(
-                ' **Features:**\\n'
-                ' Psychology-optimized descriptions\\n'
-                ' Conversion-focused messaging\\n'
-                ' Urgency and scarcity triggers\\n'
-                ' Emotional appeal optimization\\n'
-                ' Category-specific templates'
-            )
+            st.info(' **Features:**  Psychology-optimized descriptions  Conversion-focused messaging  Urgency and scarcity triggers  Emotional appeal optimization  Category-specific templates')
         
         if st.button(' Generate Car Post', use_container_width=True, type='primary'):
             if not car_description.strip():
@@ -137,16 +130,17 @@ with tab1:
             
             with col1:
                 post = st.session_state.car_post
-                st.markdown(f"**{post.get('title', 'Car for Sale')}**")
+                title = post.get('title', 'Car for Sale')
+                st.markdown(f'**{title}**')
                 st.write(post.get('description', ''))
                 
                 if post.get('highlights'):
                     st.markdown('**Key Highlights:**')
                     for highlight in post['highlights']:
-                        st.markdown(f'• {highlight}')
+                        st.markdown(f' {highlight}')
                 
                 if post.get('call_to_action'):
-                    st.success(f"💬 {post['call_to_action']}")
+                    st.success(f" {post['call_to_action']}")
             
             with col2:
                 st.metric('Conversion Score', post.get('conversion_score', 'N/A'))
