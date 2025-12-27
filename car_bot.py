@@ -2,6 +2,7 @@ import re
 from dataclasses import dataclass
 from typing import Optional, Dict, List
 from enum import Enum
+from functools import lru_cache
 
 class CarCategory(Enum):
     BUDGET = "Budget Car (Daily Driver)"

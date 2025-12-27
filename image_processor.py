@@ -1,5 +1,5 @@
 # ============================================================================
-# Car Image Processor - Professional Image Processing for Maximum Conversions
+# Car Image Processor - OPTIMIZED - Fast processing with lazy loading
 # Creates eye-catching collages optimized for Facebook & maximum lead generation
 # ============================================================================
 
@@ -7,7 +7,15 @@ from PIL import Image, ImageDraw, ImageFilter, ImageEnhance, ImageOps
 from pathlib import Path
 import io
 from typing import List, Tuple, Dict, Optional
-import numpy as np
+from functools import lru_cache
+
+# Lazy import numpy only when needed
+_numpy_available = False
+try:
+    import numpy as np
+    _numpy_available = True
+except ImportError:
+    pass
 
 
 def image_to_bytes(image: Image.Image, format='JPEG', quality=88) -> bytes:

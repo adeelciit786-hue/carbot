@@ -3,6 +3,7 @@ from car_bot import CarPostingBot
 from chat_assistant import get_chat_response, get_api_status
 from image_processor import CarImageProcessor
 from werkzeug.utils import secure_filename
+from functools import lru_cache
 import os
 
 app = Flask(__name__)
@@ -12,11 +13,26 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif', 'webp'}
 
+# Lazy load modules
+_bot = None
+_image_processor = None
+
+def get_bot():
+    """Lazy load bot module"""
+    global _bot
+    if _bot is None:
+        _bot = CarPostingBot()
+    return _bot
+
+def get_image_processor():
+    """Lazy load image processor"""
+    global _image_processor
+    if _image_processor is None:
+        _image_processor = CarImageProcessor()
+    return _image_processor
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-bot = CarPostingBot()
-image_processor = CarImageProcessor()
 
 @app.route('/')
 def index():
@@ -54,6 +70,7 @@ def process_car():
                 'errors': ['Description too long - please keep it under 5000 characters']
             }), 400
         
+        bot = get_bot()
         result = bot.generate_full_post(description)
         
         if result['success']:
