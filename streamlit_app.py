@@ -3,6 +3,8 @@ import json
 from PIL import Image
 from io import BytesIO
 
+# Version: 2.1 - Cache bust - Fixed st.chat_input error
+
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
     page_title='🚗 Car Posting Bot',
