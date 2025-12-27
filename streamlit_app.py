@@ -5,7 +5,7 @@ from PIL import Image
 from io import BytesIO
 from pathlib import Path
 
-# Page configuration
+# Page configuration (v2.1)
 st.set_page_config(
     page_title='Car Posting Bot',
     page_icon='',
