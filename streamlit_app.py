@@ -167,26 +167,36 @@ with tab2:
     if not chat_assist:
         st.error(' Chat Assistant module not loaded.')
     else:
-        for message in st.session_state.chat_history:
-            if message['role'] == 'user':
-                st.chat_message('user').write(message['content'])
-            else:
-                st.chat_message('assistant').write(message['content'])
+        # Display chat history
+        chat_container = st.container()
+        with chat_container:
+            for message in st.session_state.chat_history:
+                if message['role'] == 'user':
+                    st.chat_message('user').write(message['content'])
+                else:
+                    st.chat_message('assistant').write(message['content'])
         
-        user_input = st.chat_input('Type your question here...', key='chat_input')
+        # Input area
+        input_col1, input_col2 = st.columns([4, 1])
         
-        if user_input:
+        with input_col1:
+            user_input = st.text_input('Type your question here...', key='chat_input', label_visibility='collapsed')
+        
+        with input_col2:
+            send_btn = st.button(' Send', use_container_width=True, type='primary')
+        
+        if send_btn and user_input:
             st.session_state.chat_history.append({'role': 'user', 'content': user_input})
-            st.chat_message('user').write(user_input)
             
             with st.spinner(' Thinking...'):
                 try:
                     response = chat_assist.get_response(user_input)
                     st.session_state.chat_history.append({'role': 'assistant', 'content': response})
-                    st.chat_message('assistant').write(response)
+                    st.rerun()
                 except Exception as e:
                     st.error(f' Error: {str(e)}')
         
+        st.divider()
         col1, col2, col3 = st.columns(3)
         with col2:
             if st.button(' Clear Chat History', use_container_width=True):
