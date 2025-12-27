@@ -33,12 +33,11 @@ http://localhost:5000
 ---
 
 ### Option 2: Streamlit Cloud
-**Deploy to cloud (experimental)**
+**Deploy to cloud**
 
-**URL**: https://carbot-gcpnpyqerbfo4v5ewymom5.streamlit.app/
+**URL**: https://carbot-diqvyalzgoklrpx5uuv8vw.streamlit.app/
 
-**Status**: Basic version available  
-(Note: Some dependency conflicts on Cloud - localhost recommended)
+**Status**: ✅ Live and ready to use
 
 ---
 
@@ -152,7 +151,7 @@ http://localhost:5000
 
 - **GitHub**: https://github.com/adeelciit786-hue/carbot
 - **Localhost**: http://localhost:5000
-- **Streamlit Cloud**: https://carbot-gcpnpyqerbfo4v5ewymom5.streamlit.app
+- **Streamlit Cloud**: https://carbot-diqvyalzgoklrpx5uuv8vw.streamlit.app/
 - **Full README**: [README.md](README.md)
 
 ---
