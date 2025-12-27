@@ -27,9 +27,24 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Load modules locally
-from car_bot import CarPostingBot, CarCategory
-from chat_assistant import ChatAssistant
-from image_processor import CarImageProcessor
+try:
+    from car_bot import CarPostingBot, CarCategory
+except ImportError:
+    st.error("Error loading car_bot module")
+    CarPostingBot = None
+    CarCategory = None
+
+try:
+    from chat_assistant import ChatAssistant
+except ImportError:
+    st.error("Error loading chat_assistant module")
+    ChatAssistant = None
+
+try:
+    from image_processor import CarImageProcessor
+except ImportError:
+    st.error("Error loading image_processor module")
+    CarImageProcessor = None
 
 # Initialize session state
 if 'car_post' not in st.session_state:
