@@ -137,16 +137,16 @@ with tab1:
             
             with col1:
                 post = st.session_state.car_post
-                st.markdown(f\"**{post.get('title', 'Car for Sale')}**\")
+                st.markdown(f"**{post.get('title', 'Car for Sale')}**")
                 st.write(post.get('description', ''))
                 
                 if post.get('highlights'):
                     st.markdown('**Key Highlights:**')
                     for highlight in post['highlights']:
-                        st.markdown(f' {highlight}')
+                        st.markdown(f'• {highlight}')
                 
                 if post.get('call_to_action'):
-                    st.success(f\" {post['call_to_action']}\")
+                    st.success(f"💬 {post['call_to_action']}")
             
             with col2:
                 st.metric('Conversion Score', post.get('conversion_score', 'N/A'))
