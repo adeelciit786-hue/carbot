@@ -405,19 +405,11 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
         st.subheader('Copy-Paste Caption for Facebook')
         caption_text = post.get('caption', '')
         st.markdown(f'<div class="content-box">{caption_text}</div>', unsafe_allow_html=True)
-        st.text_area('Copy caption:', value=caption_text, height=250, disabled=True, label_visibility='collapsed')
-        col_copy = st.columns([1, 3])[0]
-        with col_copy:
-            st.button('📋 Copy Caption', key='copy_caption', use_container_width=True)
     
     elif selected_tab == '🏷️ Hashtags':
         st.subheader('Ready-to-Use Hashtags')
         hashtags_text = post.get('hashtags', '')
         st.markdown(f'<div class="content-box">{hashtags_text}</div>', unsafe_allow_html=True)
-        st.text_area('Copy hashtags:', value=hashtags_text, height=150, disabled=True, label_visibility='collapsed')
-        col_copy = st.columns([1, 3])[0]
-        with col_copy:
-            st.button('📋 Copy Hashtags', key='copy_hashtags', use_container_width=True)
     
     elif selected_tab == '✨ Features':
         st.subheader('Car Features')
