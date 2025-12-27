@@ -247,6 +247,27 @@ try:
     bot = CarPostingBot()
 except Exception as e:
     st.error(f'🚗 Car Bot Error: {str(e)[:50]}')
+
+try:
+    from chat_assistant import ChatAssistant
+    chat_assist = ChatAssistant()
+except Exception as e:
+    st.error(f'💬 Chat Error: {str(e)[:50]}')
+
+try:
+    from image_processor import CarImageProcessor
+    image_processor = CarImageProcessor()
+except Exception as e:
+    st.error(f'🖼️ Image Processor Error: {str(e)[:50]}')
+
+# ==================== SESSION STATE ====================
+if 'car_post_result' not in st.session_state:
+    st.session_state.car_post_result = None
+if 'current_tab' not in st.session_state:
+    st.session_state.current_tab = 'caption'
+if 'chat_history' not in st.session_state:
+    st.session_state.chat_history = []
+
 # ==================== HEADER ====================
 st.markdown('''
     <div class="header-container">
