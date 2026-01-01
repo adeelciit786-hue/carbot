@@ -3,8 +3,8 @@ import json
 from PIL import Image
 from io import BytesIO
 
-# ============ VERSION 4.1 - PERFORMANCE OPTIMIZED ============
-# Fixed: Caching, lazy loading, optimized CSS
+# ============ VERSION 4.1.1 - FIXED SYNTAX ERRORS ============
+# Fixed: Removed broken character, optimized for mobile and all social platforms
 # Status: Production Ready - Fast Load Times
 
 # ==================== PAGE CONFIG ====================
