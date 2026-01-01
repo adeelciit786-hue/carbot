@@ -487,14 +487,19 @@ if 'selected_platform' not in st.session_state:
     st.session_state.selected_platform = 'TikTok'
 
 # ==================== HEADER ====================
-# Make title clickable - home button
-if st.button('� Digital Content Management Solution', key='home_btn', use_container_width=True):
+# Make title clickable - home button that clears all data
+if st.button('🚗 Digital Content Management Solution', key='home_btn', use_container_width=True):
+    st.session_state.car_post_result = None
+    st.session_state.current_tab = 'caption'
     st.session_state.chat_history = []
+    st.session_state.platform_content = None
+    st.session_state.selected_platform = 'TikTok'
     st.rerun()
 
 st.markdown('''
     <div class="header-container">
-        <h1>� Digital Content Management Solution</h1>
+        <h1 style="cursor: pointer; padding: 10px; border-radius: 5px; transition: background-color 0.3s;" 
+            onclick="window.location.reload();">🚗 Digital Content Management Solution</h1>
         <p>Automotive Brands with Consistent, High-Quality Social Content</p>
     </div>
     ''', unsafe_allow_html=True)
