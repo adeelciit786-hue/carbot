@@ -817,7 +817,7 @@ st.markdown(
         <strong>v5.0</strong> • TikTok • YouTube • Instagram • Snapchat • SEO-Optimized
     </p>
     <p style="font-size: 11px; color: #CBD5E1; margin-top: 10px;">
-        Crafted with excellence • Transforming Automotive Sales Through AI-Powered Content
+        Crafted with excellence by Adeel Ahmed
     </p>
     </div>""",
     unsafe_allow_html=True
