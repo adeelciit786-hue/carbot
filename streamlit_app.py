@@ -652,7 +652,7 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
         st.markdown('<div style="font-weight: 600; font-size: 18px; color: #1E293B; margin-bottom: 15px;">Optimized Content for Each Platform</div>', unsafe_allow_html=True)
         
         # Platform selection
-        platform_tabs = ['📱 TikTok', '🎬 YouTube', '📸 Instagram', '👻 Snapchat']
+        platform_tabs = ['📱 TikTok', '🎬 YouTube', '📸 Instagram', '👻 Snapchat', '📘 Facebook']
         selected_platform = st.tabs(platform_tabs)
         
         platforms_dict = {
@@ -660,6 +660,7 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
             'YouTube': st.session_state.platform_content.get('YouTube'),
             'Instagram': st.session_state.platform_content.get('Instagram'),
             'Snapchat': st.session_state.platform_content.get('Snapchat'),
+            'Facebook': st.session_state.platform_content.get('Facebook'),
         }
         
         with selected_platform[0]:  # TikTok
@@ -691,6 +692,14 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
             st.metric('Urgency Score', f'{metrics.virality_score}/10', '🔥 Critical')
             st.metric('Estimated Reach', metrics.estimated_reach)
             st.markdown(f'<div class="content-box">{metrics.caption}</div>', unsafe_allow_html=True)
+        
+        with selected_platform[4]:  # Facebook
+            metrics = platforms_dict['Facebook']
+            st.markdown(f'<div class="category-badge">💬 {metrics.engagement_potential}</div>', unsafe_allow_html=True)
+            st.metric('Community Score', f'{metrics.virality_score}/10', '💪 Strong')
+            st.metric('Estimated Reach', metrics.estimated_reach)
+            st.markdown(f'<div class="content-box">{metrics.caption}</div>', unsafe_allow_html=True)
+            st.write('**Community Hashtags:**', ', '.join(metrics.trending_keywords))
         
         # Performance ranking
         st.divider()
@@ -809,14 +818,14 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.divider()
 st.markdown(
     """<div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(217, 70, 239, 0.05)); border-radius: 20px; margin-top: 50px;">
-    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">� Digital Content Management Solution</h3>
-    <p style="color: #64748B; margin: 10px 0; font-size: 14px;">
+    <h3 style="color: #0F172A; margin-bottom: 15px; font-size: 1.6em; font-weight: 800;">🚗 Digital Content Management Solution</h3>
+    <p style="color: #1E293B; margin: 10px 0; font-size: 16px; font-weight: 600;">
         Multi-Platform Social Media Content Generation for Automotive Brands
     </p>
-    <p style="font-size: 12px; color: #94A3B8; margin-top: 15px;">
-        <strong>v5.0</strong> • TikTok • YouTube • Instagram • Snapchat • SEO-Optimized
+    <p style="font-size: 14px; color: #334155; margin-top: 15px; font-weight: 500;">
+        <strong>v5.0</strong> • 📱 TikTok • 🎬 YouTube • 📸 Instagram • 👻 Snapchat • 📘 Facebook • SEO-Optimized
     </p>
-    <p style="font-size: 11px; color: #CBD5E1; margin-top: 10px;">
+    <p style="font-size: 13px; color: #475569; margin-top: 10px;">
         Crafted with excellence by Adeel Ahmed
     </p>
     </div>""",

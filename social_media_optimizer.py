@@ -15,6 +15,7 @@ class PlatformType(Enum):
     YOUTUBE = "YouTube"
     INSTAGRAM = "Instagram"
     SNAPCHAT = "Snapchat"
+    FACEBOOK = "Facebook"
 
 
 @dataclass
@@ -379,6 +380,50 @@ Best Deal Today 🚗"""
         )
 
 
+class FacebookCaptionGenerator:
+    """Generate optimized captions for Facebook (community-focused, detailed)"""
+    
+    def generate(self, car_description: str, year: str, make_model: str,
+                 price: str, mileage: str) -> CaptionMetrics:
+        """Generate Facebook optimized caption"""
+        
+        caption = f"""🚗 Stunning {year} {make_model} Now Available! 🚗
+
+Hello Car Enthusiasts! 👋
+
+We're excited to present this beautiful {year} {make_model} to our Facebook family!
+
+✨ KEY HIGHLIGHTS:
+💰 Price: AED {price}
+📍 Mileage: {mileage} km
+🔧 Condition: Premium Quality
+📋 Full Service History Available
+
+🎯 WHY YOU'LL LOVE IT:
+{car_description}
+
+📸 View more photos and videos in our gallery!
+🏎️ Schedule a test drive with our team
+💬 Questions? Drop a comment below!
+
+🌟 SPECIAL OFFER:
+Early birds get exclusive warranty packages!
+Contact us today for details.
+
+#CarDeals #UsedCars #AutomativeLife #DreamCar #VehicleForSale #CarEnthusiasts"""
+        
+        return CaptionMetrics(
+            platform=PlatformType.FACEBOOK.value,
+            caption=caption,
+            estimated_reach="200K - 1M",
+            virality_score=8,
+            trending_keywords=["#CarDeals", "#UsedCars", "#AutomativeLife", "#DreamCar"],
+            hashtags_count=8,
+            character_count=len(caption),
+            engagement_potential="💬 COMMUNITY-DRIVEN - DISCUSSION FOCUSED"
+        )
+
+
 class SocialMediaOptimizer:
     """Main optimizer class - coordinates all platform generators"""
     
@@ -387,6 +432,7 @@ class SocialMediaOptimizer:
         self.youtube = YouTubeCaptionGenerator()
         self.instagram = InstagramCaptionGenerator()
         self.snapchat = SnapchatCaptionGenerator()
+        self.facebook = FacebookCaptionGenerator()
     
     def generate_all_platforms(self, car_description: str, year: str, 
                               make_model: str, price: str, mileage: str,
@@ -404,6 +450,9 @@ class SocialMediaOptimizer:
                 car_description, year, make_model, price, mileage
             ),
             PlatformType.SNAPCHAT.value: self.snapchat.generate(
+                car_description, year, make_model, price, mileage
+            ),
+            PlatformType.FACEBOOK.value: self.facebook.generate(
                 car_description, year, make_model, price, mileage
             ),
         }
