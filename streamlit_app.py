@@ -9,11 +9,11 @@ from io import BytesIO
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title='Premium Car Posting Bot',
+    page_title='Digital Content Management Solution',
     page_icon='💎',
     layout='wide',
     initial_sidebar_state='collapsed',
-    menu_items={'about': "Car Posting Bot v4.1 - Optimized Performance"}
+    menu_items={'about': "Digital Content Management Solution v5.0 - Multi-Platform Optimized"}
 )
 
 # Disable theme changing
@@ -443,6 +443,7 @@ def load_bot_modules():
     bot = None
     chat_assist = None
     image_processor = None
+    social_optimizer = None
     
     try:
         from car_bot import CarPostingBot, CarCategory
@@ -462,10 +463,16 @@ def load_bot_modules():
     except Exception as e:
         st.error(f'🖼️ Image Processor Error: {str(e)[:50]}')
     
-    return bot, chat_assist, image_processor
+    try:
+        from social_media_optimizer import SocialMediaOptimizer
+        social_optimizer = SocialMediaOptimizer()
+    except Exception as e:
+        st.error(f'📱 Social Media Optimizer Error: {str(e)[:50]}')
+    
+    return bot, chat_assist, image_processor, social_optimizer
 
 # Load modules using cache
-bot, chat_assist, image_processor = load_bot_modules()
+bot, chat_assist, image_processor, social_optimizer = load_bot_modules()
 
 # ==================== SESSION STATE ====================
 if 'car_post_result' not in st.session_state:
@@ -474,17 +481,21 @@ if 'current_tab' not in st.session_state:
     st.session_state.current_tab = 'caption'
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
+if 'platform_content' not in st.session_state:
+    st.session_state.platform_content = None
+if 'selected_platform' not in st.session_state:
+    st.session_state.selected_platform = 'TikTok'
 
 # ==================== HEADER ====================
 # Make title clickable - home button
-if st.button('💎 MERCEDES CAR POSTING BOT', key='home_btn', use_container_width=True):
+if st.button('💎 Digital Content Management Solution', key='home_btn', use_container_width=True):
     st.session_state.chat_history = []
     st.rerun()
 
 st.markdown('''
     <div class="header-container">
-        <h1>💎 MERCEDES CAR POSTING BOT</h1>
-        <p>Generate Stunning Social Media Posts in Seconds - Works with All Platforms</p>
+        <h1>💎 Digital Content Management Solution</h1>
+        <p>Automotive Brands with Consistent, High-Quality Social Content</p>
     </div>
     ''', unsafe_allow_html=True)
 
@@ -536,6 +547,20 @@ with col2:
                     try:
                         result = bot.generate_full_post(car_description)
                         st.session_state.car_post_result = result
+                        
+                        # Generate platform-specific content if optimizer is available
+                        if social_optimizer and result.get('success'):
+                            car_info = result.get('car_info', {})
+                            platform_content = social_optimizer.generate_all_platforms(
+                                car_description,
+                                year=str(car_info.get('year', 'N/A')),
+                                make_model=car_info.get('make_model', 'Car'),
+                                price=str(car_info.get('asking_price', 'Contact')),
+                                mileage=str(car_info.get('mileage', 'N/A')),
+                                features=result.get('features_summary', '')
+                            )
+                            st.session_state.platform_content = platform_content
+                        
                         st.rerun()
                     except Exception as e:
                         st.error(f'❌ Error: {str(e)}')
@@ -604,7 +629,11 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
     post = st.session_state.car_post_result
     
     # Tab selection
-    tabs = ['📄 Caption', '🏷️ Hashtags', '✨ Features', '📱 Posting Guide', '💬 Inquiry Script', '✅ Delivery Script']
+    if st.session_state.platform_content:
+        tabs = ['📄 Caption', '🎯 Platform-Specific Content', '🏷️ Hashtags', '✨ Features', '📱 Posting Guide', '💬 Inquiry Script', '✅ Delivery Script']
+    else:
+        tabs = ['📄 Caption', '🏷️ Hashtags', '✨ Features', '📱 Posting Guide', '💬 Inquiry Script', '✅ Delivery Script']
+    
     selected_tab = st.radio('Select content:', tabs, horizontal=True, label_visibility='collapsed')
     
     st.markdown('---')
@@ -613,6 +642,67 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
         st.markdown('<div style="font-weight: 600; font-size: 18px; color: #1E293B; margin-bottom: 15px;">Copy-Paste Caption for All Social Media Platforms</div>', unsafe_allow_html=True)
         caption_text = post.get('caption', '')
         st.markdown(f'<div class="content-box" style="font-family: \'Segoe UI\', sans-serif; font-size: 15px; line-height: 1.6; letter-spacing: 0.3px; color: #1E293B;">{caption_text}</div>', unsafe_allow_html=True)
+    
+    elif selected_tab == '🎯 Platform-Specific Content' and st.session_state.platform_content:
+        st.markdown('<div style="font-weight: 600; font-size: 18px; color: #1E293B; margin-bottom: 15px;">Optimized Content for Each Platform</div>', unsafe_allow_html=True)
+        
+        # Platform selection
+        platform_tabs = ['📱 TikTok', '🎬 YouTube', '📸 Instagram', '👻 Snapchat']
+        selected_platform = st.tabs(platform_tabs)
+        
+        platforms_dict = {
+            'TikTok': st.session_state.platform_content.get('TikTok'),
+            'YouTube': st.session_state.platform_content.get('YouTube'),
+            'Instagram': st.session_state.platform_content.get('Instagram'),
+            'Snapchat': st.session_state.platform_content.get('Snapchat'),
+        }
+        
+        with selected_platform[0]:  # TikTok
+            metrics = platforms_dict['TikTok']
+            st.markdown(f'<div class="category-badge">⚡ {metrics.engagement_potential}</div>', unsafe_allow_html=True)
+            st.metric('Virality Score', f'{metrics.virality_score}/10', '🔥 High')
+            st.metric('Estimated Reach', metrics.estimated_reach)
+            st.markdown(f'<div class="content-box">{metrics.caption}</div>', unsafe_allow_html=True)
+            st.write('**Trending Keywords:**', ', '.join(metrics.trending_keywords))
+        
+        with selected_platform[1]:  # YouTube
+            metrics = platforms_dict['YouTube']
+            st.markdown(f'<div class="category-badge">🎬 {metrics.engagement_potential}</div>', unsafe_allow_html=True)
+            st.metric('SEO Score', f'{metrics.virality_score}/10', '📊 Optimized')
+            st.metric('Estimated Reach', metrics.estimated_reach)
+            st.markdown(f'<div class="content-box">{metrics.caption}</div>', unsafe_allow_html=True)
+            st.write('**SEO Keywords:**', ', '.join(metrics.trending_keywords))
+        
+        with selected_platform[2]:  # Instagram
+            metrics = platforms_dict['Instagram']
+            st.markdown(f'<div class="category-badge">❤️ {metrics.engagement_potential}</div>', unsafe_allow_html=True)
+            st.metric('Engagement Score', f'{metrics.virality_score}/10', '📈 Strong')
+            st.metric('Hashtags Count', metrics.hashtags_count)
+            st.markdown(f'<div class="content-box">{metrics.caption}</div>', unsafe_allow_html=True)
+        
+        with selected_platform[3]:  # Snapchat
+            metrics = platforms_dict['Snapchat']
+            st.markdown(f'<div class="category-badge">⚡ {metrics.engagement_potential}</div>', unsafe_allow_html=True)
+            st.metric('Urgency Score', f'{metrics.virality_score}/10', '🔥 Critical')
+            st.metric('Estimated Reach', metrics.estimated_reach)
+            st.markdown(f'<div class="content-box">{metrics.caption}</div>', unsafe_allow_html=True)
+        
+        # Performance ranking
+        st.divider()
+        st.markdown('<div style="font-weight: 600; font-size: 16px; color: #1E293B; margin-bottom: 15px;">Platform Performance Ranking</div>', unsafe_allow_html=True)
+        
+        if social_optimizer:
+            ranking = social_optimizer.rank_platforms_by_performance(st.session_state.platform_content)
+            ranking_data = []
+            for rank in ranking:
+                ranking_data.append({
+                    '🏆 Rank': rank['rank'],
+                    'Platform': rank['platform'],
+                    'Score': f"{rank['score']}/10",
+                    'Reach': rank['estimated_reach'],
+                    'Type': rank['engagement']
+                })
+            st.dataframe(ranking_data, use_container_width=True, hide_index=True)
     
     elif selected_tab == '🏷️ Hashtags':
         st.subheader('Ready-to-Use Hashtags')
@@ -711,15 +801,15 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.divider()
 st.markdown(
     """<div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(217, 70, 239, 0.05)); border-radius: 20px; margin-top: 50px;">
-    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">💎 Premium Car Posting Bot</h3>
+    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">💎 Digital Content Management Solution</h3>
     <p style="color: #64748B; margin: 10px 0; font-size: 14px;">
-        Empower Your Sales with Intelligent Social Media Marketing
+        Multi-Platform Social Media Content Generation for Automotive Brands
     </p>
     <p style="font-size: 12px; color: #94A3B8; margin-top: 15px;">
-        <strong>v4.1</strong> • Premium Design • Multi-Platform Ready • Mobile Optimized
+        <strong>v5.0</strong> • TikTok • YouTube • Instagram • Snapchat • SEO-Optimized
     </p>
     <p style="font-size: 11px; color: #CBD5E1; margin-top: 10px;">
-        Crafted with excellence by <strong>Adeel Ahmed</strong> • Transforming Car Sales Through AI
+        Crafted with excellence • Transforming Automotive Sales Through AI-Powered Content
     </p>
     </div>""",
     unsafe_html=True
