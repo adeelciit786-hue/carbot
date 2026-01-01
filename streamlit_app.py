@@ -9,7 +9,7 @@ from io import BytesIO
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title='� Mercedes Car Posting Bot',
+    page_title='Premium Car Posting Bot',
     page_icon='💎',
     layout='wide',
     initial_sidebar_state='collapsed',
@@ -484,7 +484,7 @@ if st.button('💎 MERCEDES CAR POSTING BOT', key='home_btn', use_container_widt
 st.markdown('''
     <div class="header-container">
         <h1>💎 MERCEDES CAR POSTING BOT</h1>
-        <p>Generate Perfect Facebook Posts in Seconds</p>
+        <p>Generate Stunning Social Media Posts in Seconds - Works with All Platforms</p>
     </div>
     ''', unsafe_allow_html=True)
 
@@ -610,9 +610,9 @@ if st.session_state.car_post_result and st.session_state.car_post_result.get('su
     st.markdown('---')
     
     if selected_tab == '📄 Caption':
-        st.subheader('Copy-Paste Caption for Facebook')
+        st.markdown('<div style="font-weight: 600; font-size: 18px; color: #1E293B; margin-bottom: 15px;">Copy-Paste Caption for All Social Media Platforms</div>', unsafe_allow_html=True)
         caption_text = post.get('caption', '')
-        st.markdown(f'<div class="content-box">{caption_text}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="content-box" style="font-family: \'Segoe UI\', sans-serif; font-size: 15px; line-height: 1.6; letter-spacing: 0.3px; color: #1E293B;">{caption_text}</div>', unsafe_allow_html=True)
     
     elif selected_tab == '🏷️ Hashtags':
         st.subheader('Ready-to-Use Hashtags')
@@ -706,20 +706,21 @@ if st.session_state.chat_history:
         st.rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)
-� Mercedes
+
 # ==================== FOOTER ====================
 st.divider()
 st.markdown(
-    '''<div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(217, 70, 239, 0.05)); border-radius: 20px; margin-top: 50px;">
-    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">🚗 Car Posting Bot</h3>
+    """<div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(217, 70, 239, 0.05)); border-radius: 20px; margin-top: 50px;">
+    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">💎 Premium Car Posting Bot</h3>
     <p style="color: #64748B; margin: 10px 0; font-size: 14px;">
-        <a href="https://github.com/adeelciit786-hue/carbot" style="color: #6C63FF; text-decoration: none; font-weight: 600;">📚 GitHub Repository</a> • 
-        <a href="http://localhost:5000" style="color: #6C63FF; text-decoration: none; font-weight: 600;">⚙️ Flask Version</a> • 
-        <a href="https://carbot-irnxcfhgdg7jw4ckuttnwn.streamlit.app/" style="color: #6C63FF; text-decoration: none; font-weight: 600;">☁️ Cloud Version</a>
+        Empower Your Sales with Intelligent Social Media Marketing
     </p>
     <p style="font-size: 12px; color: #94A3B8; margin-top: 15px;">
-        <strong>v4.0</strong> • Premium Design • Full Production Ready
+        <strong>v4.1</strong> • Premium Design • Multi-Platform Ready • Mobile Optimized
     </p>
-    </div>''',
-    unsafe_allow_html=True
+    <p style="font-size: 11px; color: #CBD5E1; margin-top: 10px;">
+        Crafted with excellence by <strong>Adeel Ahmed</strong> • Transforming Car Sales Through AI
+    </p>
+    </div>""",
+    unsafe_html=True
 )

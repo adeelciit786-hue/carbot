@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>� Mercedes Car Posting Bot</title>
+    <title>💎 Premium Car Posting Bot</title>
     <style>
         * {
             margin: 0;
@@ -19,6 +19,25 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.5em !important;
+            }
+            
+            header p {
+                font-size: 14px;
+            }
+            
+            .main-grid {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         .container {
@@ -537,7 +556,7 @@
     <div class="container">
         <header>
             <h1><a href="/" style="color: inherit; text-decoration: none; cursor: pointer;">💎 MERCEDES CAR POSTING BOT</a></h1>
-            <p>Generate Perfect Facebook Posts in Seconds</p>
+            <p>Generate Stunning Social Media Posts in Seconds - Works with All Platforms</p>
         </header>
 
         <div class="main-grid">
@@ -594,7 +613,7 @@ I am selling this car for just 30,000 AED."></textarea>
                     </div>
 
                     <div id="caption" class="tab-content active">
-                        <h3 style="margin-bottom: 10px;">Copy-Paste Caption for Facebook</h3>
+                <h3 style="margin-bottom: 10px; font-weight: 700; color: #1E293B;">Copy-Paste Caption for All Social Media Platforms</h3>
                         <div class="content-box" id="captionContent"></div>
                         <button class="copy-btn" onclick="copyToClipboard('captionContent')">📋 Copy Caption</button>
                     </div>
