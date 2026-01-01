@@ -1,4 +1,4 @@
-# 🚗 Car Posting Bot - AI-Powered Sales Optimization
+# � Mercedes Car Posting Bot - AI-Powered Sales Optimization
 
 A comprehensive Python/Flask application that automatically generates psychology-driven car sales posts with conversion-optimized captions, strategic hashtags, and intelligent buyer engagement scripts.
 

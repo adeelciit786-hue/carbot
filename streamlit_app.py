@@ -9,8 +9,8 @@ from io import BytesIO
 
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
-    page_title='🚗 Car Posting Bot',
-    page_icon='🚗',
+    page_title='� Mercedes Car Posting Bot',
+    page_icon='💎',
     layout='wide',
     initial_sidebar_state='collapsed',
     menu_items={'about': "Car Posting Bot v4.1 - Optimized Performance"}
@@ -476,9 +476,14 @@ if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
 # ==================== HEADER ====================
+# Make title clickable - home button
+if st.button('💎 MERCEDES CAR POSTING BOT', key='home_btn', use_container_width=True):
+    st.session_state.chat_history = []
+    st.rerun()
+
 st.markdown('''
     <div class="header-container">
-        <h1>🚗 CAR POSTING BOT</h1>
+        <h1>💎 MERCEDES CAR POSTING BOT</h1>
         <p>Generate Perfect Facebook Posts in Seconds</p>
     </div>
     ''', unsafe_allow_html=True)
@@ -701,7 +706,7 @@ if st.session_state.chat_history:
         st.rerun()
 
 st.markdown('</div>', unsafe_allow_html=True)
-
+� Mercedes
 # ==================== FOOTER ====================
 st.divider()
 st.markdown(

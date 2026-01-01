@@ -157,7 +157,7 @@ def image_backgrounds():
 
 if __name__ == '__main__':
     print("\n" + "="*70)
-    print("🚗 CAR POSTING BOT - LOCALHOST SERVER")
+    print("� MERCEDES CAR POSTING BOT - LOCALHOST SERVER")
     print("="*70)
     print("\n✅ Server starting...")
     print("📍 Open your browser: http://localhost:5000")
