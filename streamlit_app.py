@@ -767,16 +767,19 @@ if generate_response:
         if chat_assist:
             with st.spinner('⏳ Generating response...'):
                 try:
-                    response = chat_assist.get_response(customer_message)
-                    st.session_state.chat_history.append({
-                        'role': 'user',
-                        'content': customer_message
-                    })
-                    st.session_state.chat_history.append({
-                        'role': 'assistant',
-                        'content': response
-                    })
-                    st.rerun()
+                    response_data = chat_assist.generate_response(customer_message)
+                    if response_data.get('success'):
+                        st.session_state.chat_history.append({
+                            'role': 'user',
+                            'content': customer_message
+                        })
+                        st.session_state.chat_history.append({
+                            'role': 'assistant',
+                            'content': response_data.get('response', 'Unable to generate response')
+                        })
+                        st.rerun()
+                    else:
+                        st.error(f"❌ {response_data.get('error', 'Unknown error')}")
                 except Exception as e:
                     st.error(f'❌ Error: {str(e)}')
         else:
