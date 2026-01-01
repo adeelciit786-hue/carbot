@@ -812,5 +812,5 @@ st.markdown(
         Crafted with excellence • Transforming Automotive Sales Through AI-Powered Content
     </p>
     </div>""",
-    unsafe_html=True
+    unsafe_allow_html=True
 )
