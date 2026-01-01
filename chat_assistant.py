@@ -4,7 +4,6 @@ Generates smart, humanized responses to customer inquiries
 """
 
 import os
-import json
 from typing import Dict, Optional
 
 # Try to import OpenAI first, fallback to Google Gemini
