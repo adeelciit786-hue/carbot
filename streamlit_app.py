@@ -10,7 +10,7 @@ from io import BytesIO
 # ==================== PAGE CONFIG ====================
 st.set_page_config(
     page_title='Digital Content Management Solution',
-    page_icon='💎',
+    page_icon='�',
     layout='wide',
     initial_sidebar_state='collapsed',
     menu_items={'about': "Digital Content Management Solution v5.0 - Multi-Platform Optimized"}
@@ -488,13 +488,13 @@ if 'selected_platform' not in st.session_state:
 
 # ==================== HEADER ====================
 # Make title clickable - home button
-if st.button('💎 Digital Content Management Solution', key='home_btn', use_container_width=True):
+if st.button('� Digital Content Management Solution', key='home_btn', use_container_width=True):
     st.session_state.chat_history = []
     st.rerun()
 
 st.markdown('''
     <div class="header-container">
-        <h1>💎 Digital Content Management Solution</h1>
+        <h1>� Digital Content Management Solution</h1>
         <p>Automotive Brands with Consistent, High-Quality Social Content</p>
     </div>
     ''', unsafe_allow_html=True)
@@ -804,7 +804,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 st.divider()
 st.markdown(
     """<div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(217, 70, 239, 0.05)); border-radius: 20px; margin-top: 50px;">
-    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">💎 Digital Content Management Solution</h3>
+    <h3 style="color: #6C63FF; margin-bottom: 15px; font-size: 1.3em;">� Digital Content Management Solution</h3>
     <p style="color: #64748B; margin: 10px 0; font-size: 14px;">
         Multi-Platform Social Media Content Generation for Automotive Brands
     </p>
